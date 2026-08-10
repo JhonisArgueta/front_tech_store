@@ -11,13 +11,13 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   login(credentials: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap(res => this.saveToken(res.token))
     );
   }
 
   signUp(userData: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/signup`, userData).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/signup`, userData).pipe(
       tap(res => this.saveToken(res.token))
     );
   }
