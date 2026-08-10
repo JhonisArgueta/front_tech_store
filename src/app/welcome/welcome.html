@@ -1,0 +1,132 @@
+<div class="min-h-screen bg-slate-50">
+  <!-- Barra de Navegación -->
+  <nav class="bg-white shadow-sm border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex-shrink-0 flex items-center gap-2">
+          <!-- Ícono de Tecnología (CPU) -->
+          <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+          </svg>
+          <span class="text-xl font-black tracking-tight text-slate-900">Tech<span class="text-indigo-600">Store</span></span>
+        </div>
+        <div class="flex items-center space-x-5">
+          <span class="text-sm text-slate-600 font-medium">Hola, {{ userName }}</span>
+          <button (click)="logout()" class="text-sm font-medium text-slate-500 hover:text-red-600 transition-colors">
+            Cerrar Sesión
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Banner de Resumen -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 mb-1">Panel de Control ⚡</h1>
+        <p class="text-slate-500">Gestión de inventario, pedidos y envíos de tu tienda de tecnología.</p>
+      </div>
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+        Nuevo Artículo
+      </button>
+    </div>
+
+    <!-- Grid de Métricas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      
+      <!-- Tarjeta 1: Pedidos Nuevos -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-300 transition-colors">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Pedidos Hoy</h2>
+          <span class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          </span>
+        </div>
+        <p class="text-3xl font-bold text-slate-900">24</p>
+        <p class="text-sm text-emerald-600 mt-2 flex items-center gap-1 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          +12% vs ayer
+        </p>
+      </div>
+
+      <!-- Tarjeta 2: Equipos en Tránsito -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 transition-colors">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Envíos en Ruta</h2>
+          <span class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          </span>
+        </div>
+        <p class="text-3xl font-bold text-slate-900">7</p>
+        <p class="text-sm text-slate-500 mt-2 font-medium">Entregas programadas</p>
+      </div>
+
+      <!-- Tarjeta 3: Ingresos -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-emerald-300 transition-colors">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Ingresos del Día</h2>
+          <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </span>
+        </div>
+        <p class="text-3xl font-bold text-slate-900">$1,845.00</p>
+        <p class="text-sm text-slate-500 mt-2 font-medium">Total facturado hoy</p>
+      </div>
+    </div>
+
+    <!-- Tabla de Últimos Pedidos -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="px-6 py-5 border-b border-slate-200 flex justify-between items-center">
+        <h3 class="text-lg font-bold text-slate-900">Últimos Pedidos</h3>
+        <button class="text-sm text-indigo-600 font-medium hover:text-indigo-800">Ver todos</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
+              <th class="px-6 py-4 font-semibold">Orden</th>
+              <th class="px-6 py-4 font-semibold">Cliente</th>
+              <th class="px-6 py-4 font-semibold">Producto Principal</th>
+              <th class="px-6 py-4 font-semibold">Estado</th>
+              <th class="px-6 py-4 font-semibold">Total</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-sm text-slate-700">
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-6 py-4 font-bold text-indigo-600">#TS-9042</td>
+              <td class="px-6 py-4 font-medium">Carlos Rodríguez</td>
+              <td class="px-6 py-4 text-slate-500">Monitor Gaming 24" 144Hz</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full">Procesando</span>
+              </td>
+              <td class="px-6 py-4 font-bold text-slate-900">$245.00</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-6 py-4 font-bold text-indigo-600">#TS-9041</td>
+              <td class="px-6 py-4 font-medium">Ana Martínez</td>
+              <td class="px-6 py-4 text-slate-500">Teclado Mecánico RGB</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">Enviado</span>
+              </td>
+              <td class="px-6 py-4 font-bold text-slate-900">$85.00</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-6 py-4 font-bold text-indigo-600">#TS-9040</td>
+              <td class="px-6 py-4 font-medium">Luis Gómez</td>
+              <td class="px-6 py-4 text-slate-500">MacBook Air M1 256GB</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">Entregado</span>
+              </td>
+              <td class="px-6 py-4 font-bold text-slate-900">$899.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>

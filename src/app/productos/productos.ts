@@ -1,5 +1,5 @@
 import { Component , inject, signal, OnInit} from '@angular/core';
-import { Personasservice } from '../services/personas/personasservice';
+//import { Personasservice } from '../services/personas/personasservice';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { Personasservice } from '../services/personas/personasservice';
   styleUrl: './productos.css',
 })
 export class Productos implements OnInit {
-  private personasService =inject(Personasservice)
+  //private personasService =inject(Personasservice)
   data = signal<any []> ([])
   error = signal<string|null>(null)
   loading=signal<boolean>(true)
@@ -21,9 +21,9 @@ export class Productos implements OnInit {
   async ngOnInit() {
     this.loading.set(false);
     try{
-      const data =await   this.personasService.fetchUser();
-      this.data.set(data);
-      console.log(data);
+      //const data =await   this.personasService.fetchUser();
+     // this.data.set(data);
+      //console.log(data);
     }catch(err){
       this.error.set(err as string)
     }finally{

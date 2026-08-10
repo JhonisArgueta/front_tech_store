@@ -80,7 +80,7 @@ export class AuthComponent {
       })
     ).subscribe({
       next: (res) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/welcome']);
       },
       error: (err) => {
         console.error('Error HTTP recibido en el componente:', err);
