@@ -1,0 +1,95 @@
+<div class="mt-[4rem] min-h-[calc(100vh-5rem)] bg-slate-900 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto space-y-8">
+
+    <!-- Título de Sección -->
+    <div class="text-center space-y-2">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Nuestros <span class="text-indigo-500">Productos</span>
+      </h1>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">
+        Explora nuestro catálogo de tecnología con componentes, perifericos y laptops de alto rendimiento.
+      </p>
+    </div>
+
+    <!-- Catálogo de Productos (Grid Responsivo) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for (product of data(); track product.id) {
+        
+        <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 shadow-xl hover:border-indigo-500/50 hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden backdrop-blur-sm">
+          
+          <div>
+            <!-- Badge de Stock -->
+            <div class="absolute top-3 right-3 z-10">
+              @if (product.stock > 0) {
+                <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-semibold rounded-full">
+                  Stock: {{ product.stock }}
+                </span>
+              } @else {
+                <span class="px-2.5 py-1 bg-red-500/10 text-red-400 border border-red-500/20 text-[11px] font-semibold rounded-full">
+                  Agotado
+                </span>
+              }
+            </div>
+
+            <!-- Contenedor de Imagen -->
+            <div class="w-full h-44 bg-slate-900/80 rounded-xl flex items-center justify-center p-4 overflow-hidden mb-4 border border-slate-800 group-hover:scale-105 transition-transform duration-300">
+              @if (product.imageUrl) {
+                <img 
+                  [src]="product.imageUrl" 
+                  [alt]="product.name" 
+                  class="h-full w-full object-contain"
+                />
+              } @else {
+                <span class="text-4xl text-slate-700">⚡</span>
+              }
+            </div>
+
+            <!-- Categoria si existe -->
+            @if (product.category) {
+              <span class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider block mb-1">
+                {{ product.category }}
+              </span>
+            }
+
+            <!-- Nombre y Descripción -->
+            <h3 class="text-base font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-1">
+              {{ product.name }}
+            </h3>
+            <p class="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+              {{ product.description }}
+            </p>
+          </div>
+
+          <!-- Precio y Botón de Acción -->
+          <div class="mt-5 pt-3 border-t border-slate-700/60 flex items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] uppercase font-semibold text-slate-500 block">Precio</span>
+              <span class="text-lg font-extrabold text-indigo-400">
+                ${{ product.price.toFixed(2) }}
+              </span>
+            </div>
+
+            <button 
+              (click)="notification(product)" 
+              [disabled]="product.stock <= 0"
+              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-600/20 transition-all duration-200 cursor-pointer flex items-center gap-1.5 shrink-0"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Agregar</span>
+            </button>
+          </div>
+
+        </div>
+
+      } @empty {
+        <div class="col-span-full py-16 text-center">
+          <span class="text-4xl block mb-2">📦</span>
+          <p class="text-slate-400 text-sm">No hay productos disponibles por el momento.</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>
