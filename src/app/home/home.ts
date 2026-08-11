@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { ProductosService } from '../services/producto/productos-service';
 
 export interface Product {
   id: number;
@@ -19,8 +19,8 @@ export interface Product {
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  private http = inject(HttpClient);
-  private cd = inject(ChangeDetectorRef); // 👈 Forzar renderizado en pantalla
+  private cd = inject(ChangeDetectorRef);
+  private productosService = inject(ProductosService); // 👈 Usaremos este servicio
 
   featuredProducts: Product[] = [];
   isLoading: boolean = true;
@@ -37,30 +37,34 @@ export class Home implements OnInit {
     this.loadProducts();
   }
 
-  loadProducts(): void {
+  // 👇 Usamos async/await para consumir el servicio
+  async loadProducts(): Promise<void> {
     this.isLoading = true;
 
-    this.http.get<Product[]>('http://localhost:8080/products').subscribe({
-      next: (products) => {
-        this.featuredProducts = products;
-        this.isLoading = false;
-        this.cd.detectChanges(); // 👈 Repinta la vista con los datos reales
-      },
-      error: (err) => {
-        console.error('Error al cargar productos desde Spring Boot:', err);
-        
-        // Mock fallback
-        this.featuredProducts = [
-          { id: 1, name: 'Laptop Gaming RTX 4060', description: 'Intel i7 13a Gen, 16GB RAM, 1TB SSD', price: 1299.99, category: 'laptops' },
-          { id: 2, name: 'Teclado Mecánico RGB', description: 'Switches Red, formato 75%, inalámbrico', price: 89.50, category: 'perifericos' },
-          { id: 3, name: 'Monitor Gamer 27" 165Hz', description: 'Panel IPS QHD 1ms FreeSync', price: 279.00, category: 'perifericos' },
-          { id: 4, name: 'Tarjeta de Video RTX 4070', description: '12GB GDDR6X Dual Fan', price: 649.00, category: 'componentes' }
-        ];
-
-        this.isLoading = false;
-        this.cd.detectChanges(); // 👈 Repinta la vista con el MOCK
-      }
-    });
+    try {
+      // Llamamos al servicio (que ya tiene configurada la URL correcta)
+      const products = await this.productosService.fetchProducts();
+      this.featuredProducts = products;
+      
+    } catch (err) {
+      console.error('Error al cargar productos desde Spring Boot:', err);
+      
+      // Mock fallback CORREGIDO: ¡Ahora incluimos imageUrl para probar!
+      this.featuredProducts = [
+        { 
+          id: 1, 
+          name: 'Laptop Gaming RTX 4060', 
+          description: 'Intel i7 13a Gen, 16GB RAM, 1TB SSD', 
+          price: 1299.99, 
+          category: 'laptops',
+          imageUrl: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&auto=format&fit=crop' 
+        }
+        // ... puedes agregar los demás aquí
+      ];
+    } finally {
+      this.isLoading = false;
+      this.cd.detectChanges(); // Repinta la vista sea cual sea el resultado
+    }
   }
 
   filterCategory(catId: string): void {
