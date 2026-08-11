@@ -13,7 +13,7 @@ private http = inject(HttpClient);
   fetchProducts(): Promise<any[]> {
     // firstValueFrom convierte el Observable de HTTP a una Promesa 
     // para que puedas usar async/await en tu componente
-    return firstValueFrom(this.http.get<any[]>(`${this.apiUrl}/api/products`));
+    return firstValueFrom(this.http.get<any[]>(`${this.apiUrl}/products`));
   }
 
 
