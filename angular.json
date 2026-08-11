@@ -23,6 +23,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
+
+                 
               }
             ],
             "styles": [
