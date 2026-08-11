@@ -26,5 +26,9 @@ export const routes: Routes = [
     {
         path:"productos",
         loadComponent:()=> import("./productos/productos").then(m=>m.Productos)
+    },
+    {
+        path:"**",
+        loadComponent:()=> import("./home/home").then(m=>m.Home)
     }
 ];
